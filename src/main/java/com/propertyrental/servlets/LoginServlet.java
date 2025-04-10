@@ -2,7 +2,6 @@ package com.propertyrental.servlets;
 
 import com.propertyrental.config.DBConnection;
 import com.propertyrental.config.JWTUtil;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,12 +19,39 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        // Retrieve parameters from the request
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         JSONObject jsonResponse = new JSONObject();
 
+        // Basic validation for required parameters
+        if (email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty()) {
+            jsonResponse.put("error", "Email and password are required.");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(jsonResponse.toString());
+            return;
+        }
+
+        // Validate the email format (basic regex)
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            jsonResponse.put("error", "Invalid email format.");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(jsonResponse.toString());
+            return;
+        }
+
+        // Attempt to create a database connection
         try (Connection con = DBConnection.getConnection()) {
+            if (con == null) {
+                jsonResponse.put("error", "Database connection not available.");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write(jsonResponse.toString());
+                return;
+            }
+
+            // Prepare and execute the query to authenticate user
             String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
@@ -33,25 +59,25 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String userId = rs.getString("id");   // Fetch user_id from DB
-                String role = rs.getString("role");         // Fetch role from DB
+                // Retrieve fields from the user record
+                String userId = rs.getString("id");
+                String role = rs.getString("role");
+                String accountType = rs.getString("account_type");
 
-                // Generate the JWT token with email, user_id, and role
+                // Generate a JWT token including email, userId, and role.
                 String token = JWTUtil.generateToken(email, userId, role);
 
-                String accountType = rs.getString("account_type"); // 👈 fetch account type from DB (if needed)
-
                 jsonResponse.put("message", "Login successful");
-                jsonResponse.put("token", token);  // Include the token in the response
-                jsonResponse.put("accountType", accountType); // Include account type in the response if needed
-                response.setStatus(HttpServletResponse.SC_OK); // 200 OK
+                jsonResponse.put("token", token);
+                jsonResponse.put("accountType", accountType);
+                response.setStatus(HttpServletResponse.SC_OK);
             } else {
                 jsonResponse.put("error", "Invalid email or password");
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
         } catch (Exception e) {
             jsonResponse.put("error", "Internal server error: " + e.getMessage());
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 
         response.getWriter().write(jsonResponse.toString());
