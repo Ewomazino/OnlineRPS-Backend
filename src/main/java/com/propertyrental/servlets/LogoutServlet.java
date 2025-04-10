@@ -38,6 +38,6 @@ public class LogoutServlet extends HttpServlet {
 
         // Return success response.
         response.setStatus(HttpServletResponse.SC_OK);
-        out.print(jsonResponse.toString());
+        out.print(jsonResponse);
     }
 }

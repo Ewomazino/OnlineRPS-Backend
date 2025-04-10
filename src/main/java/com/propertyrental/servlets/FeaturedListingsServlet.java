@@ -45,7 +45,7 @@ public class FeaturedListingsServlet extends HttpServlet {
                 listings.put(listing);
             }
 
-            out.print(listings.toString());
+            out.print(listings);
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

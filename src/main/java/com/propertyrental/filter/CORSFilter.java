@@ -18,7 +18,7 @@ public class CORSFilter implements Filter {
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
 
         // Allow cross-origin requests from React frontend (localhost:3000)
-        httpResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        httpResponse.setHeader("Access-Control-Allow-Origin", "https://online-prs-frontend.vercel.app");
 
         // Allow specific methods (GET, POST, DELETE, OPTIONS)
         httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");

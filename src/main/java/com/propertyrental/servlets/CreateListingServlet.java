@@ -142,12 +142,12 @@ public class CreateListingServlet extends HttpServlet {
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("message", "Listing created successfully.");
                     jsonResponse.put("image_url", imagesStr);
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("error", "Failed to create listing.");
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 }
             }
         } catch (SQLException e) {

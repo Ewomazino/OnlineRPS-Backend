@@ -65,7 +65,7 @@ public class DeleteListingServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("message", "Listing deleted successfully.");
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     out.print("{\"error\": \"Failed to delete listing.\"}");

@@ -73,7 +73,7 @@ public class TerminateBookingServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("message", "Booking terminated successfully.");
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     out.print("{\"error\": \"Booking not found or could not be terminated.\"}");

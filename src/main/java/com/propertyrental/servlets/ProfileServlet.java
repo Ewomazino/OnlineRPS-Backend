@@ -51,7 +51,7 @@ public class ProfileServlet extends HttpServlet {
                     profile.put("account_type", rs.getString("account_type"));
                     profile.put("phone", rs.getString("phone"));
 
-                    out.print(profile.toString());
+                    out.print(profile);
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     out.print("{\"error\": \"User not found.\"}");
@@ -115,7 +115,7 @@ public class ProfileServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("message", "Profile updated successfully.");
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     out.print("{\"error\": \"Failed to update profile.\"}");

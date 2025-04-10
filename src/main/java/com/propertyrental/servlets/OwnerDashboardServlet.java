@@ -102,7 +102,7 @@ public class OwnerDashboardServlet extends HttpServlet {
                 listingsArr.put(listing);
             }
 
-            out.print(listingsArr.toString());
+            out.print(listingsArr);
             response.setStatus(HttpServletResponse.SC_OK);
 
         } catch (Exception e) {

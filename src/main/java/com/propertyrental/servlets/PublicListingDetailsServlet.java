@@ -69,7 +69,7 @@ public class PublicListingDetailsServlet extends HttpServlet {
                 owner.put("email", rs.getString("owner_email"));
                 listing.put("landlord", owner);
 
-                out.print(listing.toString());
+                out.print(listing);
                 response.setStatus(HttpServletResponse.SC_OK);
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

@@ -63,7 +63,7 @@ public class ListingsServlet extends HttpServlet {
                 out.print(listings.get(0).toString());
             } else {
                 JSONArray listingsArray = new JSONArray(listings);
-                out.print(listingsArray.toString());
+                out.print(listingsArray);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

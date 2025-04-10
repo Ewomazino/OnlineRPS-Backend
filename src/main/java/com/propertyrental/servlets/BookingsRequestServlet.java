@@ -68,7 +68,7 @@ public class BookingsRequestServlet extends HttpServlet {
                     booking.put("status", rs.getString("status"));
                     bookingRequests.put(booking);
                 }
-                out.print(bookingRequests.toString());
+                out.print(bookingRequests);
                 response.setStatus(HttpServletResponse.SC_OK);
             }
         } catch (SQLException e) {

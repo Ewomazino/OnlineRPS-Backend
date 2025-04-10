@@ -54,7 +54,7 @@ public class OwnerListingServlet extends HttpServlet {
                     listings.put(listing);
                 }
 
-                out.print(listings.toString());
+                out.print(listings);
                 response.setStatus(HttpServletResponse.SC_OK);
             }
         } catch (SQLException e) {

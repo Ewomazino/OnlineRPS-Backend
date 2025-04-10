@@ -45,7 +45,7 @@ public class PublicListingsServlet extends HttpServlet {
                 listingsArray.put(listing);
             }
 
-            out.print(listingsArray.toString());
+            out.print(listingsArray);
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

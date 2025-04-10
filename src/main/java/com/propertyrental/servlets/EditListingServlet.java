@@ -108,7 +108,7 @@ public class EditListingServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     JSONObject jsonResponse = new JSONObject();
                     jsonResponse.put("message", "Listing updated successfully.");
-                    out.print(jsonResponse.toString());
+                    out.print(jsonResponse);
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     out.print("{\"error\": \"Failed to update listing.\"}");

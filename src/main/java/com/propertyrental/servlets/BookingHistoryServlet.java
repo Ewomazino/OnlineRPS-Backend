@@ -94,7 +94,7 @@ public class BookingHistoryServlet extends HttpServlet {
                 if (idParam != null && !idParam.isEmpty() && bookings.length() > 0) {
                     out.print(bookings.get(0).toString());
                 } else {
-                    out.print(bookings.toString());
+                    out.print(bookings);
                 }
                 response.setStatus(HttpServletResponse.SC_OK);
             }
