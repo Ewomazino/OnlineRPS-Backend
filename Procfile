@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar target/PropertyRentalSystem-1.0.0.war
